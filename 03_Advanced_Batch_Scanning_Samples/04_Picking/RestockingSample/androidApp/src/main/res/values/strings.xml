@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Restocking</string>
+    <string name="app_title">Restocking</string>
+    <string name="finish">Finish</string>
+    <string name="continue_scanning">Continue scanning</string>
+    <string name="items_picked">Picklist</string>
+    <string name="items_scanned">Inventory (%1$d)</string>
+    <string name="item_gtin">GTIN: %1$s</string>
+</resources>

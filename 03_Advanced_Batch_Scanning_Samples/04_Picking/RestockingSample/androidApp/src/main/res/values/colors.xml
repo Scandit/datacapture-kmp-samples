@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorAccent">#000000</color>
+    <color name="light_grey">#F8FAFC</color>
+    <color name="black_900">#121619</color>
+    <color name="grey_500">#8795A1</color>
+    <color name="teal_100">#2EC1CE</color>
+    <color name="red_100">#FA4446</color>
+    <color name="grey_slim_separator">#DAE1E7</color>
+    <color name="grey_separator">#F1F5F8</color>
+</resources>

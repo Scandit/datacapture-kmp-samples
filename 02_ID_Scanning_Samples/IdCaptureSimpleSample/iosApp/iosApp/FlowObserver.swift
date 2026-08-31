@@ -1,0 +1,29 @@
+/*
+ * This file is part of the Scandit Data Capture SDK
+ *
+ * Copyright (C) 2026- Scandit AG. All rights reserved.
+ */
+
+import Foundation
+import shared
+
+// Event-driven bridge from `IdScannerScreenModel.state` (Kotlin StateFlow)
+// to SwiftUI. The shared module exposes `observeState` — a callback-based
+// subscription backed by a coroutine collector on `Dispatchers.Main` — so
+// this side just relays values into a `@Published` property. No Timer
+// polling, no spurious re-renders: the publisher fires only when the
+// upstream StateFlow emits.
+final class FlowObserver: ObservableObject {
+    @Published var value: IdScannerUiState?
+
+    private var cancellable: FlowCancellable?
+
+    init(model: IdScannerScreenModel) {
+        self.value = model.state.value as? IdScannerUiState
+        self.cancellable = model.observeState { [weak self] state in
+            self?.value = state
+        }
+    }
+
+    deinit { cancellable?.cancel() }
+}
