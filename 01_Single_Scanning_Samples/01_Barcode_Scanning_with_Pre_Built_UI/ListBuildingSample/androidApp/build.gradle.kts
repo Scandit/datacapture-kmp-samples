@@ -77,8 +77,8 @@ dependencies {
     // Required to reach the core view bridging types (AndroidViewContext,
     // toAndroidView) directly from the Activity, since `:shared` exposes them
     // transitively but compose host code references them by FQN.
-    implementation("com.scandit.datacapture.kmp:core:8.6.0")
+    implementation("com.scandit.datacapture.kmp:core:8.6.1")
     // The ListBuilding host constructs SparkScanView and calls its
     // `toAndroidView()` extension directly, so depend on the barcode module.
-    implementation("com.scandit.datacapture.kmp:barcode:8.6.0")
+    implementation("com.scandit.datacapture.kmp:barcode:8.6.1")
 }

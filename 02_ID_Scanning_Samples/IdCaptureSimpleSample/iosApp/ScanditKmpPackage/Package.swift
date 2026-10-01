@@ -17,7 +17,7 @@ let package = Package(
     name: "ScanditKmpPackage",
     platforms: [.iOS(.v15)],
     dependencies: [
-        .package(url: "https://github.com/Scandit/datacapture-spm", exact: "8.6.0")
+        .package(url: "https://github.com/Scandit/datacapture-spm", exact: "8.6.1")
     ],
     products: [
         .library(
