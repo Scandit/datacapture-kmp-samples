@@ -78,7 +78,7 @@ dependencies {
     // rememberBarcodeCount) directly from the Activity/screens, since
     // `:shared` exposes it transitively but compose host code references it
     // by FQN.
-    implementation("com.scandit.datacapture.kmp:core:8.6.1")
-    implementation("com.scandit.datacapture.kmp:barcode:8.6.1")
-    implementation("com.scandit.datacapture.kmp:barcode-compose:8.6.1")
+    implementation("com.scandit.datacapture.kmp:core:8.6.2")
+    implementation("com.scandit.datacapture.kmp:barcode:8.6.2")
+    implementation("com.scandit.datacapture.kmp:barcode-compose:8.6.2")
 }

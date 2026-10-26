@@ -16,9 +16,6 @@ import PackageDescription
 let package = Package(
     name: "ScanditKmpPackage",
     platforms: [.iOS(.v15)],
-    dependencies: [
-        .package(url: "https://github.com/Scandit/datacapture-spm", exact: "8.6.1")
-    ],
     products: [
         .library(
             name: "ScanditKmp",
@@ -26,6 +23,9 @@ let package = Package(
                 "shared", "ScanditKmpNativeDependencies"
             ]
         )
+    ],
+    dependencies: [
+        .package(url: "https://github.com/Scandit/datacapture-spm", exact: "8.6.2")
     ],
     targets: [
         .target(

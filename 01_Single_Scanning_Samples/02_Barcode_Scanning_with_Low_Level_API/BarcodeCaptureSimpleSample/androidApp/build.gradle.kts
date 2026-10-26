@@ -77,5 +77,5 @@ dependencies {
     // Required to reach the core view bridging types (AndroidViewContext,
     // toAndroidView) directly from the Activity, since `:shared` exposes them
     // transitively but compose host code references them by FQN.
-    implementation("com.scandit.datacapture.kmp:core:8.6.1")
+    implementation("com.scandit.datacapture.kmp:core:8.6.2")
 }

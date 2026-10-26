@@ -44,11 +44,11 @@ kotlin {
             target.binaries.framework {
                 baseName = "shared"
                 isStatic = true
-                export("com.scandit.datacapture.kmp:core:8.6.1")
-                export("com.scandit.datacapture.kmp:id:8.6.1")
+                export("com.scandit.datacapture.kmp:core:8.6.2")
+                export("com.scandit.datacapture.kmp:id:8.6.2")
                 // id's public API (CapturedId.barcode) exposes barcode types;
                 // `export` is not transitive, so export barcode explicitly.
-                export("com.scandit.datacapture.kmp:barcode:8.6.1")
+                export("com.scandit.datacapture.kmp:barcode:8.6.2")
                 xcframeworkBundle.add(this)
             }
         }
@@ -56,8 +56,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api("com.scandit.datacapture.kmp:core:8.6.1")
-            api("com.scandit.datacapture.kmp:id:8.6.1")
+            api("com.scandit.datacapture.kmp:core:8.6.2")
+            api("com.scandit.datacapture.kmp:id:8.6.2")
             implementation(libs.kotlinx.coroutines.core)
             // Compose Multiplatform — keeps the scanner screen + alert in commonMain.
             implementation(compose.runtime)
