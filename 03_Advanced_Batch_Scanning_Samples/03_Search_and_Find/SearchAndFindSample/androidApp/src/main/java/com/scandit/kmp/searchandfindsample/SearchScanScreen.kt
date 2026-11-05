@@ -115,6 +115,12 @@ internal fun SearchScanScreen(
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose {
             lifecycleOwner.lifecycle.removeObserver(observer)
+            // Both screens live in this one Activity, so navigating to Find only
+            // disposes this composition — the Activity stays RESUMED and ON_PAUSE
+            // never fires. Pause the view here or it keeps its camera stake while
+            // BarcodeFindView drives the same DataCaptureContext. Must run before
+            // unregistering, which clears the handle this call goes through.
+            screenModel.onSearchPaused()
             screenModel.unregisterSparkScanView()
         }
     }

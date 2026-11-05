@@ -4,6 +4,10 @@ This simple sample uses the camera to capture a single retail label using the Sm
 
 It demonstrates the Kotlin Multiplatform LabelCapture DSL (`labelCaptureSettings { label(...) { customBarcode(...); expiryDateText(...); totalPriceText(...) } }`) together with `LabelCaptureBasicOverlay` and the `LabelCaptureValidationFlowOverlay`, shared across Android (Jetpack Compose) and iOS (SwiftUI).
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## Installation
 
 - Clone this repo locally.

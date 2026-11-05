@@ -4,6 +4,10 @@ This simple sample scans the front of ID cards, driver's licenses and passports 
 barcodes from AAMVA documents — using the ID Capture API, and shows the captured fields
 (name, date of birth, document number, …) in an alert.
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## Installation
 
 - Clone this repo locally.

@@ -6,6 +6,10 @@ Each scan adds a row to a scrollable list showing a cropped thumbnail of the bar
 
 The sample is shared across Android and iOS through Kotlin Multiplatform: the scanning logic, dedup/quantity bookkeeping, and barcode-thumbnail cropping live in the `shared` module, while each platform provides a thin native UI layer (Jetpack Compose on Android, SwiftUI on iOS) that hosts the `SparkScanView` and renders the list.
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## Installation
 
 - Clone this repo locally.

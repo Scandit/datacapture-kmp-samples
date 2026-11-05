@@ -4,6 +4,10 @@ This sample uses the camera to track multiple barcodes at once (MatrixScan / Bar
 
 This is a Kotlin Multiplatform sample sharing the BarcodeBatch wiring and freeze state machine in `shared/`, with thin Compose (Android) and SwiftUI (iOS) hosts that embed the camera view and build the native bubble view.
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## Installation
 
 - Clone this repo locally.

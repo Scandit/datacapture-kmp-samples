@@ -17,6 +17,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 
 /**
  * Which "Done" semantics the Results screen should use — mirrors the native
@@ -76,11 +79,31 @@ internal fun MatrixScanCountApp(screenModel: MatrixScanCountScreenModel) {
                 }
             }
 
-            // Camera on while the scanner subtree is composed; off when it
-            // leaves (back to Home).
-            DisposableEffect(Unit) {
+            // Camera follows the Activity lifecycle, not just the composition:
+            // backgrounding the app never disposes this subtree, so a
+            // composition-scoped effect would leave the camera unmanaged across
+            // minimize/reopen (black preview on return). ON_RESUME/ON_PAUSE keep
+            // it in step. The explicit resume after registering covers the case
+            // where the subtree is composed before the Activity reaches RESUMED;
+            // it is idempotent, so the replay `addObserver` performs when the
+            // Activity is already RESUMED costs nothing. ON_PAUSE doesn't fire on
+            // a back-navigation to Home while the Activity stays RESUMED, so
+            // onDispose pauses too.
+            val lifecycleOwner = LocalLifecycleOwner.current
+            DisposableEffect(lifecycleOwner) {
+                val observer = LifecycleEventObserver { _, event ->
+                    when (event) {
+                        Lifecycle.Event.ON_RESUME -> screenModel.resumeFrameSource()
+                        Lifecycle.Event.ON_PAUSE -> screenModel.pauseFrameSource()
+                        else -> Unit
+                    }
+                }
+                lifecycleOwner.lifecycle.addObserver(observer)
                 screenModel.resumeFrameSource()
-                onDispose { screenModel.pauseFrameSource() }
+                onDispose {
+                    lifecycleOwner.lifecycle.removeObserver(observer)
+                    screenModel.pauseFrameSource()
+                }
             }
 
             // Freeze the results list while Results is shown so a Clear List

@@ -10,6 +10,7 @@ import com.kmp.datacapture.barcode.batch.BarcodeBatch
 import com.kmp.datacapture.barcode.batch.BarcodeBatchAdvancedOverlay
 import com.kmp.datacapture.barcode.batch.BarcodeBatchAdvancedOverlayListener
 import com.kmp.datacapture.barcode.batch.BarcodeBatchBasicOverlay
+import com.kmp.datacapture.barcode.batch.BarcodeBatchBasicOverlayStyle
 import com.kmp.datacapture.barcode.batch.BarcodeBatchListener
 import com.kmp.datacapture.barcode.batch.BarcodeBatchSession
 import com.kmp.datacapture.barcode.batch.BarcodeBatchSettings
@@ -134,8 +135,13 @@ class MatrixScanBubblesScreenModel : BarcodeBatchListener, BarcodeBatchAdvancedO
         dataCaptureView = view
         this.bubbleViewFactory = bubbleViewFactory
 
-        // A basic overlay highlights every tracked barcode with the default dot.
-        val basicOverlay = BarcodeBatchBasicOverlay.withBarcodeBatchForView(barcodeBatch, view)
+        // A basic overlay highlights every tracked barcode with a dot. The style has to be
+        // passed explicitly — the styleless factory renders the rectangular FRAME style.
+        val basicOverlay = BarcodeBatchBasicOverlay.withBarcodeBatchForView(
+            barcodeBatch,
+            view,
+            BarcodeBatchBasicOverlayStyle.DOT
+        )
         view.addOverlay(basicOverlay)
 
         // An advanced overlay draws the AR bubbles on top of the barcodes.

@@ -116,10 +116,12 @@ class MatrixScanCountScreenModel : BarcodeCountListener {
         return FlowCancellable(job)
     }
 
-    // The camera and mode keep running while the Results screen is shown, so
-    // gate list updates: freeze the published list while Results is visible so
-    // it stays a stable snapshot (and a Clear List isn't immediately refilled
-    // by the still-running scanner). Re-enabled on return to the Scanner.
+    // The Results screen is drawn over a still-mounted Scanner, so gate list
+    // updates: freeze the published list while Results is visible so it stays a
+    // stable snapshot (and a Clear List isn't immediately refilled should the
+    // scanner still be running — reaching Results via the list button leaves the
+    // mode enabled, unlike the exit button, which disables it). Re-enabled on
+    // return to the Scanner, together with [resumeFrameSource].
     private var updatesEnabled = true
 
     fun setUpdatesEnabled(enabled: Boolean) {

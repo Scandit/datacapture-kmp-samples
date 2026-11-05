@@ -41,8 +41,8 @@ kotlin {
             target.binaries.framework {
                 baseName = "shared"
                 isStatic = true
-                export("com.scandit.datacapture.kmp:core:8.6.2")
-                export("com.scandit.datacapture.kmp:barcode:8.6.2")
+                export("com.scandit.datacapture.kmp:core:8.7.0")
+                export("com.scandit.datacapture.kmp:barcode:8.7.0")
                 xcframeworkBundle.add(this)
             }
         }
@@ -50,9 +50,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api("com.scandit.datacapture.kmp:core:8.6.2")
-            api("com.scandit.datacapture.kmp:barcode:8.6.2")
-            api("com.scandit.datacapture.kmp:barcode-compose:8.6.2")
+            // AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+            api("com.scandit.datacapture.kmp:core:8.7.0")
+            api("com.scandit.datacapture.kmp:barcode:8.7.0")
+            api("com.scandit.datacapture.kmp:barcode-compose:8.7.0")
             implementation(libs.kotlinx.coroutines.core)
             // Compose Multiplatform — keeps the screen model + state in commonMain.
             implementation(compose.runtime)

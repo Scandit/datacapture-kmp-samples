@@ -9,6 +9,10 @@ The cross-platform business logic (mode setup, the in-memory product list, the p
 
 The Android app is built with Jetpack Compose. The iOS app is built with SwiftUI.
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## Building
 
 This sample has no per-module Gradle wrapper. Build it from the repository-root `frameworks/kmp/gradlew` with `-p` pointing at the sample directory:

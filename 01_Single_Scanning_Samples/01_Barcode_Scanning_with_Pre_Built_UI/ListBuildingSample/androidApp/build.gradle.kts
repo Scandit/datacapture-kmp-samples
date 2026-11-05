@@ -17,7 +17,7 @@ android {
         minSdk = 24
         targetSdk = 36
         versionCode = 1
-        versionName = (rootProject.ext["frameworks_sdk_version"] as String?) ?: "1.0.0"
+        versionName = "8.7.0"
         // Ship 64-bit ABIs only: arm64-v8a covers physical devices + Apple
         // Silicon Mac emulators; x86_64 covers Intel/Linux emulators. The
         // obsolete 32-bit variants (armeabi-v7a, x86) carried a copy of
@@ -77,8 +77,8 @@ dependencies {
     // Required to reach the core view bridging types (AndroidViewContext,
     // toAndroidView) directly from the Activity, since `:shared` exposes them
     // transitively but compose host code references them by FQN.
-    implementation("com.scandit.datacapture.kmp:core:8.6.2")
+    implementation("com.scandit.datacapture.kmp:core:8.7.0")
     // The ListBuilding host constructs SparkScanView and calls its
     // `toAndroidView()` extension directly, so depend on the barcode module.
-    implementation("com.scandit.datacapture.kmp:barcode:8.6.2")
+    implementation("com.scandit.datacapture.kmp:barcode:8.7.0")
 }

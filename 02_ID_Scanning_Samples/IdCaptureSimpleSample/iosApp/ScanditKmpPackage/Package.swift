@@ -25,7 +25,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Scandit/datacapture-spm", exact: "8.6.2")
+        .package(url: "https://github.com/Scandit/datacapture-spm", exact: "8.7.0")
     ],
     targets: [
         .target(

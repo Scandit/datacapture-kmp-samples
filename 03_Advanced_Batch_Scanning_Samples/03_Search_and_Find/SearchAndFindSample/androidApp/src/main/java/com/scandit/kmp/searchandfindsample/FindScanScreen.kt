@@ -75,6 +75,10 @@ internal fun FindScanScreen(
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose {
             lifecycleOwner.lifecycle.removeObserver(observer)
+            // Same single-Activity caveat as the Search screen: returning to Search
+            // disposes this composition without an ON_PAUSE, so pause the view
+            // explicitly before tearing the mode down.
+            screenModel.onFindPaused()
             screenModel.disposeFind()
         }
     }

@@ -7,6 +7,10 @@ shows how to batch scan barcodes using the pre-built component for receiving and
 The MatrixScan Count UI incorporates our best practices for usability and has been rigorously
 tested with target users in real-world scenarios.
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## Installation
 
 - Clone this repo locally.

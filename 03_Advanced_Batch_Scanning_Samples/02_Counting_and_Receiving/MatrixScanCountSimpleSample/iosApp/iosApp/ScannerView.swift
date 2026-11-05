@@ -16,10 +16,6 @@ struct ScannerView: View {
     let screenModel: MatrixScanCountScreenModel
     let onListTap: () -> Void
     let onExitTap: () -> Void
-    // Exposes the underlying BarcodeCountView so the host (ContentView) can
-    // pause/resume it around the Results full-screen-cover presentation,
-    // since SwiftUI keeps this view mounted underneath the cover.
-    var onViewCreated: ((BarcodeCountView) -> Void)? = nil
 
     var body: some View {
         // No NavigationView here — the host (ContentView) provides the
@@ -28,8 +24,7 @@ struct ScannerView: View {
         BarcodeCountViewRepresentable(
             screenModel: screenModel,
             onListTap: onListTap,
-            onExitTap: onExitTap,
-            onViewCreated: onViewCreated
+            onExitTap: onExitTap
         )
         .edgesIgnoringSafeArea(.bottom)
         .navigationTitle("MatrixScan Count")
@@ -37,8 +32,10 @@ struct ScannerView: View {
         .toolbarBackground(Color.black, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
-        .onAppear { screenModel.resumeFrameSource() }
-        .onDisappear { screenModel.pauseFrameSource() }
+        // This screen deliberately does not touch the camera. `ContentView`
+        // switches the frame source per screen, so there is exactly one place
+        // that starts and stops scanning. What this screen does own is the
+        // view's own scanning lifecycle — see the coordinator below.
     }
 }
 
@@ -46,7 +43,6 @@ private struct BarcodeCountViewRepresentable: UIViewRepresentable {
     let screenModel: MatrixScanCountScreenModel
     let onListTap: () -> Void
     let onExitTap: () -> Void
-    let onViewCreated: ((BarcodeCountView) -> Void)?
 
     func makeCoordinator() -> Coordinator {
         Coordinator(onListTap: onListTap, onExitTap: onExitTap)
@@ -59,7 +55,6 @@ private struct BarcodeCountViewRepresentable: UIViewRepresentable {
         view.addListener(listener: context.coordinator)
         context.coordinator.view = view
         view.onResume()
-        onViewCreated?(view)
         return view.toUIView()
     }
 
@@ -69,6 +64,11 @@ private struct BarcodeCountViewRepresentable: UIViewRepresentable {
 
     static func dismantleUIView(_ uiView: UIView, coordinator: Coordinator) {
         coordinator.view?.onPause()
+        // Drop the reference with the pause. The coordinator's app-lifecycle
+        // observers can outlive this call, and resuming a view that has already
+        // been paused and detached would leave it prepared for scanning with
+        // nothing left to pause it.
+        coordinator.view = nil
     }
 
     // Kotlin interface defaults do not bridge as optional Swift protocol
@@ -79,9 +79,40 @@ private struct BarcodeCountViewRepresentable: UIViewRepresentable {
         let onExitTap: () -> Void
         var view: BarcodeCountView?
 
+        private var observers: [NSObjectProtocol] = []
+
         init(onListTap: @escaping () -> Void, onExitTap: @escaping () -> Void) {
             self.onListTap = onListTap
             self.onExitTap = onExitTap
+            super.init()
+            // `BarcodeCountView` has its own resume/pause lifecycle, separate
+            // from the frame source: pair them or the view stops scanning when
+            // the app is backgrounded and nothing restarts it, leaving a frozen
+            // preview on return. Backgrounding does not unmount this
+            // representable, so there is no SwiftUI callback to hang them on —
+            // observe the app notifications instead. These fire app-wide, so
+            // they also run while the results list is layered over this screen;
+            // that is harmless, because the camera is off there and both calls
+            // are no-ops when the view is already in that state.
+            let center = NotificationCenter.default
+            observers.append(
+                center.addObserver(
+                    forName: UIApplication.didBecomeActiveNotification,
+                    object: nil,
+                    queue: .main
+                ) { [weak self] _ in self?.view?.onResume() }
+            )
+            observers.append(
+                center.addObserver(
+                    forName: UIApplication.willResignActiveNotification,
+                    object: nil,
+                    queue: .main
+                ) { [weak self] _ in self?.view?.onPause() }
+            )
+        }
+
+        deinit {
+            observers.forEach(NotificationCenter.default.removeObserver)
         }
 
         func onListButtonTapped(view: BarcodeCountView, snapshot: BarcodeCountSessionSnapshot?) {

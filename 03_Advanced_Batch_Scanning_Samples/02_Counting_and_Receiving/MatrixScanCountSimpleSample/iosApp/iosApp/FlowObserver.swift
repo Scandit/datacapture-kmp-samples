@@ -16,7 +16,9 @@ final class FlowObserver: ObservableObject {
     @Published var items: [CountedBarcode]
     @Published var totalCount: Int
 
-    private let model: MatrixScanCountScreenModel
+    // Read back by ContentView, which holds this object in a `@StateObject` and
+    // uses it as the single owner of the model.
+    let model: MatrixScanCountScreenModel
     private var itemsCancellable: FlowCancellable?
     private var countCancellable: FlowCancellable?
 

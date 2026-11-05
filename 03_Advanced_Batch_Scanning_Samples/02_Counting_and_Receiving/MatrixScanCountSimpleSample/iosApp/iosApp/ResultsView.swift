@@ -34,7 +34,7 @@ struct ResultsView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 Text("\(observer.totalCount) items")
                     .font(.system(size: 16, weight: .bold))
