@@ -44,15 +44,15 @@ kotlin {
             target.binaries.framework {
                 baseName = "shared"
                 isStatic = true
-                export("com.scandit.datacapture.kmp:core:8.7.0")
-                export("com.scandit.datacapture.kmp:id:8.7.0")
+                export("com.scandit.datacapture.kmp:core:8.7.1")
+                export("com.scandit.datacapture.kmp:id:8.7.1")
                 // id's public API (CapturedId.barcode) exposes barcode types;
                 // `export` is not transitive, so export barcode explicitly.
-                export("com.scandit.datacapture.kmp:barcode:8.7.0")
+                export("com.scandit.datacapture.kmp:barcode:8.7.1")
                 // AAMVA barcode-verification backend (powers the forged-barcode
                 // + data-consistency reject rules). Container module with no
                 // Kotlin API; linked so the verification runs on device.
-                export("com.scandit.datacapture.kmp:id-aamva-barcode-verification:8.7.0")
+                export("com.scandit.datacapture.kmp:id-aamva-barcode-verification:8.7.1")
                 xcframeworkBundle.add(this)
             }
         }
@@ -61,11 +61,11 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
-            api("com.scandit.datacapture.kmp:core:8.7.0")
-            api("com.scandit.datacapture.kmp:id:8.7.0")
+            api("com.scandit.datacapture.kmp:core:8.7.1")
+            api("com.scandit.datacapture.kmp:id:8.7.1")
             // AAMVA barcode-verification backend — no Kotlin API, but its
             // AAR/pod must be on the build for the reject rules to verify.
-            api("com.scandit.datacapture.kmp:id-aamva-barcode-verification:8.7.0")
+            api("com.scandit.datacapture.kmp:id-aamva-barcode-verification:8.7.1")
             implementation(libs.kotlinx.coroutines.core)
             // Compose Multiplatform — keeps the scanner screen + alert in commonMain.
             implementation(compose.runtime)

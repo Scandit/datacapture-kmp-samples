@@ -44,8 +44,8 @@ kotlin {
             target.binaries.framework {
                 baseName = "shared"
                 isStatic = true
-                export("com.scandit.datacapture.kmp:core:8.7.0")
-                export("com.scandit.datacapture.kmp:barcode:8.7.0")
+                export("com.scandit.datacapture.kmp:core:8.7.1")
+                export("com.scandit.datacapture.kmp:barcode:8.7.1")
                 xcframeworkBundle.add(this)
             }
         }
@@ -54,8 +54,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
-            api("com.scandit.datacapture.kmp:core:8.7.0")
-            api("com.scandit.datacapture.kmp:barcode:8.7.0")
+            api("com.scandit.datacapture.kmp:core:8.7.1")
+            api("com.scandit.datacapture.kmp:barcode:8.7.1")
             implementation(libs.kotlinx.coroutines.core)
             // Compose Multiplatform runtime — the shared module exposes
             // Compose-friendly state (StateFlow) consumed by the Android UI.

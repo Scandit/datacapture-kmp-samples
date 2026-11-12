@@ -44,9 +44,9 @@ kotlin {
             target.binaries.framework {
                 baseName = "shared"
                 isStatic = true
-                export("com.scandit.datacapture.kmp:core:8.7.0")
-                export("com.scandit.datacapture.kmp:barcode:8.7.0")
-                export("com.scandit.datacapture.kmp:label:8.7.0")
+                export("com.scandit.datacapture.kmp:core:8.7.1")
+                export("com.scandit.datacapture.kmp:barcode:8.7.1")
+                export("com.scandit.datacapture.kmp:label:8.7.1")
                 xcframeworkBundle.add(this)
             }
         }
@@ -55,14 +55,14 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
-            api("com.scandit.datacapture.kmp:core:8.7.0")
-            api("com.scandit.datacapture.kmp:barcode:8.7.0")
-            api("com.scandit.datacapture.kmp:label:8.7.0")
+            api("com.scandit.datacapture.kmp:core:8.7.1")
+            api("com.scandit.datacapture.kmp:barcode:8.7.1")
+            api("com.scandit.datacapture.kmp:label:8.7.1")
             // Container module shipping the Smart Label Capture text-recognition
             // model (AAR/xcframework, no Kotlin API). Required at runtime — without
             // it LabelCapture crashes when the mode loads its model. Not exported
             // to the iOS XCFramework (no public surface); just linked in.
-            api("com.scandit.datacapture.kmp:label-text:8.7.0")
+            api("com.scandit.datacapture.kmp:label-text:8.7.1")
             implementation(libs.kotlinx.coroutines.core)
             // Compose Multiplatform — keeps the scanner screen + alert in commonMain.
             implementation(compose.runtime)
